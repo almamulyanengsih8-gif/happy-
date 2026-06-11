@@ -1,200 +1,489 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>E-Card For Erik</title>
-<style>
-/* --- RESET & GLOBAL --- */
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:'Segoe UI',Arial,sans-serif;background:#fce4ec;min-height:100vh;display:flex;justify-content:center;align-items:flex-start}
-#app{width:100%;max-width:480px;min-height:100vh;background:#fff;position:relative;overflow-x:hidden;box-shadow:0 0 30px rgba(0,0,0,0.15)}
-
-/* --- HALAMAN UTAMA --- */
-.hal{display:none;width:100%;min-height:100vh;flex-direction:column;position:relative; animation:fadeIn 0.5s ease}
-.hal.aktif{display:flex}
-
-/* --- HALAMAN 1: AMPLOP --- */
-#hal1{background:#fff5f7;align-items:center;justify-content:center;text-align:center;padding:20px}
-.env{width:220px;padding:35px 20px 20px;background:#fff;border:2px solid #ffb7ce;border-radius:12px;position:relative;cursor:pointer;box-shadow:0 8px 25px rgba(255,183,206,0.4);margin-bottom:40px;transition:transform 0.2s}
-.env:active{transform:scale(0.98)}
-.seal{width:40px;height:40px;background:#e91e63;border-radius:50%;position:absolute;top:-20px;left:50%;transform:translateX(-50%);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;font-weight:bold}
-.txt-to{font-size:22px;color:#e91e63;margin-top:10px;font-family:'Brush Script MT',cursive}
-.txt-from{font-size:18px;color:#ff8da1;margin-left:70px;margin-top:5px;font-family:'Brush Script MT',cursive}
-.tap-hint{color:#aaa;font-size:12px;margin-top:25px;display:flex;flex-direction:column;align-items:center;gap:5px}
-.tap-hint span:last-child{font-size:18px}
-
-/* --- HALAMAN 2: COVER --- */
-#hal2{background:url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600') center/cover;position:relative}
-.bg-cover{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.7)}
-.konten-hal2{position:relative;z-index:10;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center}
-.txt-cover{font-family:'Brush Script MT',cursive;font-size:48px;color:#e91e63}
-.txt-sub{font-size:14px;color:#666;margin:5px 0}
-.btn-lanjut{margin-top:40px;padding:14px 40px;background:#e91e63;color:#fff;border:none;border-radius:30px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 4px 15px rgba(233,30,99,0.4);z-index:11}
-.btn-lanjut:active{transform:scale(0.95)}
-
-/* --- HALAMAN 3: PESAN --- */
-#hal3{background:#fff;align-items:center;padding:20px;padding-top:60px;position:relative}
-.btn-back{position:absolute;top:15px;left:15px;background:none;border:none;font-size:24px;cursor:pointer;color:#666;z-index:20;padding:5px 10px}
-.kotak-pesan{background:#fff;border:1px solid #eee;border-radius:12px;padding:20px;width:100%;max-height:65vh;overflow-y:auto;font-size:14px;line-height:1.7;color:#444;text-align:justify;position:relative}
-.btn-expand{position:absolute;top:10px;right:10px;width:30px;height:30px;background:#f0f0f0;border:none;border-radius:5px;cursor:pointer;font-size:14px;z-index:15}
-.btn-lanjut2{margin-top:25px;padding:14px 40px;background:#e91e63;color:#fff;border:none;border-radius:30px;font-size:15px;font-weight:600;cursor:pointer}
-
-/* --- MODAL FULLSCREEN --- */
-#modal-full{position:fixed;top:0;left:0;width:100%;height:100%;background:#fff;z-index:1000;display:none;flex-direction:column;padding:20px}
-#modal-full.aktif{display:flex}
-.btn-tutup{position:absolute;top:15px;right:20px;font-size:28px;background:none;border:none;cursor:pointer;color:#333}
-.isi-modal{overflow-y:auto;padding:25px;font-size:15px;line-height:1.8;color:#444;text-align:justify}
-
-/* --- HALAMAN 4: FOR YOU --- */
-#hal4{background:#fff;align-items:center;padding:20px;padding-top:60px;position:relative}
-.pill{background:#ffb7ce;color:#fff;padding:10px 30px;border-radius:25px;font-size:15px;font-weight:600;margin-bottom:20px}
-.foto-frame{width:100%;height:350px;border-radius:15px;overflow:hidden;background:#fce4ec;box-shadow:0 5px 15px rgba(0,0,0,0.1)}
-.foto-frame img{width:100%;height:100%;object-fit:cover}
-.btn-lanjut3{margin-top:25px;padding:14px 40px;background:#e91e63;color:#fff;border:none;border-radius:30px;font-size:15px;font-weight:600;cursor:pointer}
-
-/* --- HALAMAN 5: SONG --- */
-#hal5{background:#fff;align-items:center;padding:20px;padding-top:60px;position:relative}
-.judul-lagu{font-family:'Brush Script MT',cursive;font-size:32px;color:#e91e63;margin-bottom:10px}
-.yt-frame{width:100%;aspect-ratio:16/9;background:#000;border-radius:10px;overflow:hidden}
-
-/* --- ANIMASI --- */
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>E-Card For Erik</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    /* --- GLOBAL RESET & VARIABLES --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    :root {
+      --primary-pink: #FFB7CE;
+      --accent-pink: #FF8da1;
+      --deep-pink: #e91e63;
+      --text-dark: #4a4a4a;
+      --text-light: #888888;
+      --bg-white: #ffffff;
+      --bg-soft-pink: #fff5f7;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fce4ec;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+    }
+    
+    #app {
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      background: var(--bg-white);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* --- HALAMAN UTAMA (PAGE FRAME) --- */
+    .page {
+      display: none;
+      width: 100%;
+      min-height: 100vh;
+      flex-direction: column;
+      position: relative;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    .page.active {
+      display: flex;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    /* --- HALAMAN 1: AMPLOP --- */
+    #page-1 {
+      background: var(--bg-soft-pink);
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .envelope-btn {
+      width: 220px;
+      padding: 30px 20px 20px;
+      background: var(--bg-white);
+      border: 2px solid var(--primary-pink);
+      border-radius: 12px;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(255, 183, 206, 0.4);
+      z-index: 10;
+      transition: transform 0.2s;
+    }
+    
+    .envelope-btn:active {
+      transform: scale(0.98);
+    }
+    
+    .seal-circle {
+      width: 40px;
+      height: 40px;
+      background: var(--deep-pink);
+      border-radius: 50%;
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--bg-white);
+      font-size: 18px;
+      font-weight: bold;
+      z-index: 11;
+    }
+    
+    .txt-to {
+      font-family: 'Dancing Script', cursive;
+      font-size: 22px;
+      color: var(--deep-pink);
+      margin-top: 10px;
+    }
+    
+    .txt-from {
+      font-family: 'Dancing Script', cursive;
+      font-size: 18px;
+      color: var(--accent-pink);
+      margin-left: 70px;
+      margin-top: 5px;
+    }
+    
+    .hint-text {
+      color: var(--text-light);
+      font-size: 12px;
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      z-index: 10;
+    }
+    
+    .hint-arrow {
+      font-size: 16px;
+    }
+    
+    /* --- HALAMAN 2: COVER --- */
+    #page-2 {
+      background: var(--bg-white);
+      position: relative;
+    }
+    
+    .bg-image-cover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* GANTI URL FOTO DI BAWAH INI */
+      background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600');
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .bg-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.65);
+      /* TIDAK PAKAI BLUR agar tombol bisa diklik */
+    }
+    
+    .cover-content {
+      position: relative;
+      z-index: 10;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .name-cover {
+      font-family: 'Dancing Script', cursive;
+      font-size: 48px;
+      color: var(--deep-pink);
+    }
+    
+    .sub-text {
+      color: var(--text-dark);
+      font-size: 14px;
+      font-weight: 300;
+    }
+    
+    .btn-continue {
+      margin-top: 50px;
+      padding: 14px 40px;
+      background: var(--deep-pink);
+      color: var(--bg-white);
+      border: none;
+      border-radius: 30px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+      z-index: 11;
+    }
+    
+    .btn-continue:active {
+      transform: scale(0.95);
+    }
+    
+    /* --- TOMBOL BACK --- */
+    .btn-back {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: var(--bg-white);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 20;
+      color: var(--text-dark);
+    }
+    
+    /* --- HALAMAN 3: PESAN --- */
+    #page-3 {
+      background: var(--bg-white);
+      padding: 60px 20px 20px;
+      align-items: center;
+    }
+    
+    .letter-container {
+      background: var(--bg-white);
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 20px;
+      width: 100%;
+      max-height: 60vh;
+      overflow-y: auto;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-dark);
+      text-align: justify;
+      position: relative;
+    }
+    
+    .btn-expand {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 32px;
+      height: 32px;
+      background: #f0f0f0;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      z-index: 15;
+    }
+    
+    .btn-next {
+      margin-top: 25px;
+      padding: 14px 40px;
+      background: var(--deep-pink);
+      color: var(--bg-white);
+      border: none;
+      border-radius: 30px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    
+    /* --- MODAL FULLSCREEN --- */
+    #modal-fullscreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-white);
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      padding: 20px;
+    }
+    
+    #modal-fullscreen.active {
+      display: flex;
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: var(--text-dark);
+    }
+    
+    .modal-content {
+      margin-top: 30px;
+      overflow-y: auto;
+      padding: 10px;
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text-dark);
+      text-align: justify;
+    }
+    
+    /* --- HALAMAN 4: FOR YOU --- */
+    #page-4 {
+      background: var(--bg-white);
+      padding: 60px 20px 20px;
+      align-items: center;
+    }
+    
+    .pill-label {
+      background: var(--primary-pink);
+      color: var(--bg-white);
+      padding: 10px 30px;
+      border-radius: 25px;
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    
+    .photo-container {
+      width: 100%;
+      height: 350px;
+      background: #fce4ec;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .photo-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    /* --- HALAMAN 5: SONG --- */
+    #page-5 {
+      background: var(--bg-white);
+      padding: 60px 20px 20px;
+      align-items: center;
+    }
+    
+    .song-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: 32px;
+      color: var(--deep-pink);
+      margin-bottom: 15px;
+    }
+    
+    .youtube-container {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    
+  </style>
 </head>
 <body>
 
 <div id="app">
 
-<!-- ================= HALAMAN 1 ================= -->
-<div id="hal1" class="hal aktif">
-<div class="env" onclick="pindah('hal2')">
-<div class="seal">v</div>
-<div class="txt-to">To: Erik</div>
-<div class="txt-from">From: Alma</div>
-</div>
-<div class="tap-hint" onclick="pindah('hal2')">
-<span>Tap to open</span>
-<span>&#8629;</span>
-</div>
-</div>
+  <!-- ============================================ -->
+  <!-- HALAMAN 1: AMPLOP -->
+  <!-- ============================================ -->
+  <div id="page-1" class="page active">
+    <div class="envelope-btn" id="btn-envelope">
+      <div class="seal-circle">v</div>
+      <div class="txt-to">To: Erik</div>
+      <div class="txt-from">From: Alma</div>
+    </div>
+    <div class="hint-text" id="btn-hint">
+      <span>Tap to open</span>
+      <span class="hint-arrow">&#8629;</span>
+    </div>
+  </div>
 
-<!-- ================= HALAMAN 2 ================= -->
-<div id="hal2" class="hal">
-<div class="bg-cover"></div>
-<div class="konten-hal2">
-<div class="txt-cover">Erik</div>
-<div class="txt-sub">With all my love,</div>
-<div class="txt-cover" style="font-size:36px;margin-top:5px">Alma</div>
-<button class="btn-lanjut" onclick="pindah('hal3')">Open my eCards &gt;</button>
-</div>
-</div>
+  <!-- ============================================ -->
+  <!-- HALAMAN 2: COVER -->
+  <!-- ============================================ -->
+  <div id="page-2" class="page">
+    <button class="btn-back" onclick="goToPage('page-1')">&lt;</button>
+    <div class="bg-image-cover"></div>
+    <div class="bg-overlay"></div>
+    <div class="cover-content">
+      <div class="name-cover">Erik</div>
+      <div class="sub-text">With all my love,</div>
+      <div class="name-cover" style="font-size: 36px; margin-top: 5px;">Alma</div>
+      <button class="btn-continue" onclick="goToPage('page-3')">Open my eCards &gt;</button>
+    </div>
+  </div>
 
-<!-- ================= HALAMAN 3 ================= -->
-<div id="hal3" class="hal">
-<button class="btn-back" onclick="pindah('hal1')">&lt;</button>
-<div class="kotak-pesan">
-<div style="font-weight:bold;margin-bottom:10px">Hi Erik,</div>
-I hope this letter finds you well and brings a smile to your face today. First of all, I want to say a huge congratulations to you for completing your exams! I am writing this because I truly want you to know how incredibly proud I am of you. Seeing your dedication, your focus, and the amazing effort you've put into this journey has been wonderful. You have shown so much growth and determination, and you should be very proud of yourself too. You have done a wonderful job, and completing this step is a great achievement. I always believe in your potential and your talents. You are capable of so many amazing things, and this exam is just one of the steps to a brighter future. Keep going, Erik! I know you can do it. This is just the beginning of amazing things ahead of you.
-<div style="margin-top:15px">With love,<br>Alma</div>
-</div>
-<button class="btn-expand" onclick="bukaModal()">⛶</button>
-<button class="btn-lanjut2" onclick="pindah('hal4')">Lanjut &gt;</button>
-</div>
+  <!-- ============================================ -->
+  <!-- HALAMAN 3: PESAN -->
+  <!-- ============================================ -->
+  <div id="page-3" class="page">
+    <button class="btn-back" onclick="goToPage('page-2')">&lt;</button>
+    <div class="letter-container">
+      <button class="btn-expand" onclick="showModal()">&#x29C9;</button>
+      <p><strong>Hi Erik,</strong></p>
+      <br>
+      <p>I hope this letter finds you well and brings a smile to your face today.</p>
+      <br>
+      <p>First of all, I want to say a huge congratulations to you for completing your exams! I am writing this because I truly want you to know how incredibly proud I am of you.</p>
+      <br>
+      <p>Seeing your dedication, your focus, and the amazing effort you've put into this journey has been wonderful. You have shown so much growth and determination, and you should be very proud of yourself too.</p>
+      <br>
+      <p>You have done a wonderful job, and completing this step is a great achievement. I always believe in your potential and your talents.</p>
+      <br>
+      <p>You are capable of so many amazing things, and this exam is just one of the steps to a brighter future. Keep going, Erik! I know you can do it.</p>
+      <br>
+      <p>With love,<br>Alma</p>
+    </div>
+    <button class="btn-next" onclick="goToPage('page-4')">Lanjut &gt;</button>
+  </div>
 
-<!-- MODAL FULLSCREEN -->
-<div id="modal-full" class="hal">
-<button class="btn-tutup" onclick="tutupModal()">&times;</button>
-<div class="isi-modal">
-<div style="font-weight:bold;margin-bottom:15px;font-size:18px">Hi Erik,</div>
-I hope this letter finds you well and brings a smile to your face today. First of all, I want to say a huge congratulations to you for completing your exams! I am writing this because I truly want you to know how incredibly proud I am of you. Seeing your dedication, your focus, and the amazing effort you've put into this journey has been wonderful. You have shown so much growth and determination, and you should be very proud of yourself too. You have done a wonderful job, and completing this step is a great achievement. I always believe in your potential and your talents. You are capable of so many amazing things, and this exam is just one of the steps to a brighter future. Keep going, Erik! I know you can do it. This is just the beginning of amazing things ahead of you.
-<div style="margin-top:20px">With love,<br>Alma</div>
-</div>
-</div>
+  <!-- MODAL FULLSCREEN -->
+  <div id="modal-fullscreen">
+    <button class="modal-close" onclick="hideModal()">&times;</button>
+    <div class="modal-content">
+      <p><strong>Hi Erik,</strong></p>
+      <br>
+      <p>I hope this letter finds you well and brings a smile to your face today.</p>
+      <br>
+      <p>First of all, I want to say a huge congratulations to you for completing your exams! I am writing this because I truly want you to know how incredibly proud I am of you.</p>
+      <br>
+      <p>Seeing your dedication, your focus, and the amazing effort you've put into this journey has been wonderful. You have shown so much growth and determination, and you should be very proud of yourself too.</p>
+      <br>
+      <p>You have done a wonderful job, and completing this step is a great achievement. I always believe in your potential and your talents.</p>
+      <br>
+      <p>You are capable of so many amazing things, and this exam is just one of the steps to a brighter future. Keep going, Erik! I know you can do it.</p>
+      <br>
+      <p>With love,<br>Alma</p>
+    </div>
+  </div>
 
-<!-- ================= HALAMAN 4 ================= -->
-<div id="hal4" class="hal">
-<button class="btn-back" onclick="pindah('hal3')">&lt;</button>
-<div class="pill">For You</div>
-<div class="foto-frame">
-<!-- GANTI URL FOTO DI BAWAH INI -->
-<img src="https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?w=400" alt="For Erik">
-</div>
-<button class="btn-lanjut3" onclick="pindah('hal5')">Lagu Ini Untukmu &gt;</button>
-</div>
+  <!-- ============================================ -->
+  <!-- HALAMAN 4: FOR YOU -->
+  <!-- ============================================ -->
+  <div id="page-4" class="page">
+    <button class="btn-back" onclick="goToPage('page-3')">&lt;</button>
+    <div class="pill-label">For You</div>
+    <div class="photo-container">
+      <!-- GANTI URL FOTO DI BAWAH INI -->
+      <img src="https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?w=400" alt="For Erik">
+    </div>
+    <button class="btn-next" onclick="goToPage('page-5')">Lagu Ini Untukmu &gt;</button>
+  </div>
 
-<!-- ================= HALAMAN 5 ================= -->
-<div id="hal5" class="hal">
-<button class="btn-back" onclick="pindah('hal4')">&lt;</button>
-<div class="judul-lagu">A Song For You</div>
-<div class="yt-frame" id="ytEmbed">
-<!-- Iframe YouTube akan muncul di sini secara otomatis -->
-</div>
-</div>
+  <!-- ============================================ -->
+  <!-- HALAMAN 5: SONG -->
+  <!-- ============================================ -->
+  <div id="page-5" class="page">
+    <button class="btn-back" onclick="goToPage('page-4')">&lt;</button>
+    <div class="song-title">A Song For You</div>
+    <div class="youtube-container" id="youtube-player">
+      <!-- Iframe YouTube akan muncul di sini -->
+    </div>
+  </div>
 
 </div>
 
 <script>
-/* ==========================================
-   PASTE LINK YOUTUBE KAMU DI BAWAH INI
-   Contoh: "https://youtu.be/DKv1dVaJfq4"
-   Atau: "https://www.youtube.com/watch?v=..."
-   ========================================== */
-const LINK_LAGU_YOUTUBE = "https://youtu.be/DKv1dVaJfq4";
+  /* ==========================================
+     PASTE LINK YOUTUBE KAMU DI BAWAH INI
+     ==========================================
+     Contoh: "https://youtu.be/DKv1dVaJfq4"
+     Atau: "https://www.youtube.com/watch?v=abcdefgh"
+     ========================================== */
+  const LINK_LAGU_YOUTUBE = "https://youtu.be/DKv1dVaJfq4";
 
-/* ==========================================
-   FUNGSI NAVIGASI HALAMAN
-   ========================================== */
-function pindah(idHal){
-document.querySelectorAll('.hal').forEach(h=>{
-h.classList.remove('aktif');
-if(h.id!=='modal-full') h.style.display='none';
-});
-document.getElementById(idHal).style.display='flex';
-document.getElementById(idHal).classList.add('aktif');
-}
-
-/* ==========================================
-   MODAL FULLSCREEN
-   ========================================== */
-function bukaModal(){
-document.getElementById('modal-full').classList.add('aktif');
-}
-function tutupModal(){
-document.getElementById('modal-full').classList.remove('aktif');
-}
-
-/* ==========================================
-   LOAD YOUTUBE OTOMATIS
-   ========================================== */
-function loadYoutube(){
-const container = document.getElementById('ytEmbed');
-let videoId = "";
-
-// Deteksi ID video dari Link Share YouTube
-if (LINK_LAGU_YOUTUBE.includes('youtu.be/')) {
-// Format: https://youtu.be/abcdefgh
-videoId = LINK_LAGU_YOUTUBE.split('youtu.be/')[1].split('?')[0];
-} else if (LINK_LAGU_YOUTUBE.includes('v=')) {
-// Format: https://www.youtube.com/watch?v=abcdefgh
-videoId = LINK_LAGU_YOUTUBE.split('v=')[1].split('&')[0];
-}
-
-// Masukkan iframe ke div
-if(videoId){
-container.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%;height:100%"></iframe>`;
-}else{
-container.innerHTML = '<p style="color:#fff;text-align:center;padding:20px">Link lagu invalid</p>';
-}
-}
-
-/* ==========================================
-   EVENT LISTENER SAAT HALAMAN 5 DIBUKA
-   ========================================== */
-document.querySelector('.btn-lanjut3').addEventListener('click', function(){
-loadYoutube();
-});
-</script>
-
-</body>
-</html>
+  /* ==========================================
+     FUNGSI NAVIGASI HALAMAN
+     ==========================================
